@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SYPHER — Editorial Weather Observatory</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="heading">
+    <header class="editorial-header">
+      <div class="brand-block">
+        <span class="tags">YOUR WEATHER NEEDS</span>
+        <h1 class="brand-title">SYPHER <span>// N° 04</span></h1>
+      </div>
+
+      <div class="controls-group">
+        <form id="search-form" class="search-form" role="search">
+          <label for="search-input" class="search-location">Search location</label>
+          <div class="input-wrapper">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input 
+              type="text" 
+              id="search-input" 
+              placeholder="Enter city (e.g., Tokyo, Lagos, London)..." 
+            />
+          </div>
+          <button type="submit" class="btn-action" aria-label="Submit Search">
+            <span>SEARCH></span>
+          </button>
+        </form>
+
+        <button id="geo-btn" class="btn-icon" aria-label="Use Current Location" title="Use Current Location">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 19 21 12 17 5 21 12 2"></polygon>
+          </svg>
+        </button>
+
+        <button id="theme-btn" class="btn-icon" aria-label="Toggle Dark/Light Mode" title="Toggle Visual Theme">
+          <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Error/Notice Bar -->
+    <div id="status-toast" class="status-toast hidden" role="alert" aria-live="polite">
+      <span class="toast-indicator">!</span>
+      <span id="status-message" class="toast-text">Location not found. Showing default observation.</span>
+      <button id="toast-close" class="toast-close" aria-label="Dismiss message">&times;</button>
+    </div>
+
+    <main id="app-content" class="editorial-grid">
+      
+      <section class="hero-panel tile-border">
+        <div class="panel-header">
+          <div class="location-meta">
+            <span class="label">SYPHER OBSERVATION STATION</span>
+            <h2 id="city-name" class="city-title">Lagos, NG</h2>
+            <span id="coords-display" class="coords-text">LAT: 6.5244° N // LON: 3.3792° E</span>
+          </div>
+          <div class="time-meta">
+            <span id="local-time-display" class="time-display">16:45 WAT</span>
+            <span id="weather-date" class="date-display">Saturday, Jul 25</span>
+          </div>
+        </div>
+
+        <div class="hero-center">
+          <div class="temp-wrapper">
+            <span id="current-temp" class="temp-number">28</span>
+            <span class="temp-unit">°C</span>
+          </div>
+          <div class="condition-wrapper">
+            <div id="weather-icon-hero" class="hero-condition-icon">
+            </div>
+            <div class="condition-text-group">
+              <span id="weather-main" class="condition-headline">Scattered Clouds</span>
+              <span id="weather-description" class="condition-sub">Humid with gentle sea breezes</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="solar-arc-widget">
+          <div class="arc-header">
+            <span class="label">SOLAR ELEVATION ARC</span>
+            <span id="daylight-duration" class="mono-value">12h 14m DAYLIGHT</span>
+          </div>
+          <div class="arc-container">
+            <svg class="solar-svg" viewBox="0 0 300 80" preserveAspectRatio="none">
+              <path d="M 10,70 Q 150,-20 290,70" class="arc-bg-line" />
+              <path id="solar-progress-path" d="M 10,70 Q 150,-20 290,70" class="arc-active-line" />
+              <circle id="sun-node" cx="150" cy="25" r="6" class="sun-node-circle" />
+              <line x1="0" y1="70" x2="300" y2="70" class="horizon-line" />
+            </svg>
+          </div>
+          <div class="solar-timestamps">
+            <div>
+              <span class="sub-txt">SUNRISE</span>
+              <span id="sunrise-time" class="arc-time">06:31 AM</span>
+            </div>
+            <div>
+              <span class="sub-txt">SUNSET</span>
+              <span id="sunset-time" class="arc-time">06:45 PM</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="metrics-panel tile-border">
+        <div class="panel-header">
+          <span class="label">ATMOSPHERIC METRICS</span>
+          <span class="tags">LIVE FEED</span>
+        </div>
+
+        <div class="metrics-grid">
+          <article class="metric-card">
+            <div class="metric-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+              </svg>
+            </div>
+            <div class="metric-content">
+              <span class="metric-label">HUMIDITY</span>
+              <div class="metric-value-group">
+                <span id="humidity-value" class="metric-num">82</span>
+                <span class="metric-unit">%</span>
+              </div>
+              <div class="metric-bar-bg">
+                <div id="humidity-bar" class="metric-bar-fill" style="width: 82%;"></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="metric-card">
+            <div class="metric-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"></path>
+              </svg>
+            </div>
+            <div class="metric-content">
+              <span class="metric-label">WIND SPEED</span>
+              <div class="metric-value-group">
+                <span id="wind-value" class="metric-num">14.2</span>
+                <span class="metric-unit">km/h</span>
+              </div>
+              <span id="wind-dir-text" class="metric-sub-text">Southwest (210°)</span>
+            </div>
+          </article>
+
+          <article class="metric-card">
+            <div class="metric-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <div class="metric-content">
+              <span class="metric-label">BAROMETER</span>
+              <div class="metric-value-group">
+                <span id="pressure-value" class="metric-num">1013</span>
+                <span class="metric-unit">hPa</span>
+              </div>
+              <span id="pressure-status" class="metric-sub-text">Standard Sea Level</span>
+            </div>
+          </article>
+
+          <article class="metric-card">
+            <div class="metric-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </div>
+            <div class="metric-content">
+              <span class="metric-label">VISIBILITY</span>
+              <div class="metric-value-group">
+                <span id="visibility-value" class="metric-num">10.0</span>
+                <span class="metric-unit">km</span>
+              </div>
+              <span id="visibility-status" class="metric-sub-text">Optimal Clarity</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="forecast-panel tile-border">
+        <div class="panel-header">
+          <span class="label">FIVE-DAY METEOROLOGICAL FORECAST</span>
+          <span class="tags">SYNOPTIC OUTLOOK</span>
+        </div>
+
+        <div id="forecast-container" class="forecast-grid">
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="editorial-footer">
+      <div class="footer-left">
+        <span class="sub-txt">DESIGNED FOR ATMOSPHERIC PRECISION</span>
+      </div>
+      <div class="footer-right">
+        <span class="sub-txt">DATA SOURCE: OPENWEATHER API</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -4,6 +4,8 @@
 SYPHER rejects generic modern web design templates—such as repetitive glassmorphism cards, default Inter typography, and saturated sky-blue gradients—in favor of a high-contrast, tactile editorial experience. Built with pure vanilla technologies, it translates raw meteorological metrics into an atmospheric magazine layout anchored by dramatic serif hero readouts, granular monospace field data, and dynamic solar math.
 
 ---
+link: https://jimmmzzzzz.github.io/WEATHER-APP/
+---
 
 ## 🎨 Design System & Editorial Rationale
 

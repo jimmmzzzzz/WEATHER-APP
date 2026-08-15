@@ -47,6 +47,7 @@ html {
 @media screen and (min-width: 1025px) {
   html {
     display: 100vw;
+    display: 100vh;
   }
 }
 body {

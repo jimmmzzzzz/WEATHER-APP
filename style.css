@@ -44,10 +44,10 @@ html {
   color: var(--text);
   font-family: var(--font2);
 }
-@media screen and (min-width: 1025px) {
+@media screen and (min-width: 700px) {
   html {
-    display: 100vw;
-    display: 100vh;
+    display: 100%;
+    display: 100%;
   }
 }
 body {

@@ -652,6 +652,14 @@ body {
   }
   .metrics-grid {
     grid-template-columns: 1fr;
+
+.heading,
+#app-content,
+.editorial-grid,
+.editorial-header {
+  width: 100%;
+  max-width: 100%;
+}
   }
   .forecast-grid {
     grid-template-columns: 1fr 1fr;

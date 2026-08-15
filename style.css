@@ -44,7 +44,11 @@ html {
   color: var(--text);
   font-family: var(--font2);
 }
-
+@media screen and (min-width: 1025px) {
+  body {
+    display: 100vw;
+  }
+}
 body {
   min-height: 100vh;
   padding: 24px;

@@ -43,11 +43,12 @@ html {
   background-color: var(--background);
   color: var(--text);
   font-family: var(--font2);
+  width: 100%;
+  max-width: 1400px;
 }
-@media screen and (min-width: 700px) {
+@media (max-width: 750px) {
   html {
-    display: 100%;
-    display: 100%;
+  padding: 20px
   }
 }
 body {

@@ -44,7 +44,6 @@ html {
   color: var(--text);
   font-family: var(--font2);
   width: 100%;
-  max-width: 1400px;
 }
 @media (max-width: 750px) {
   html {

@@ -52,6 +52,7 @@ html {
 }
 body {
   min-height: 100vh;
+  width: 100%;
   padding: 24px;
   display: flex;
   justify-content: center;
@@ -102,9 +103,9 @@ body {
   color: var(--text);
 }
 
-.header {
+.heading {
   width: 100%;
-  max-width: 1280px;
+  min-height: calc(100vh - 48px);
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
@@ -652,15 +653,16 @@ body {
   }
   .metrics-grid {
     grid-template-columns: 1fr;
-
-.heading,
-#app-content,
-.editorial-grid,
-.editorial-header {
-  width: 100%;
-  max-width: 100%;
-}
   }
+
+  .heading,
+  #app-content,
+  .editorial-grid,
+  .editorial-header {
+    width: 100%;
+    max-width: 100%;
+  }
+
   .forecast-grid {
     grid-template-columns: 1fr 1fr;
   }

@@ -45,11 +45,6 @@ html {
   font-family: var(--font2);
   width: 100%;
 }
-@media (max-width: 750px) {
-  html {
-  padding: 20px
-  }
-}
 body {
   min-height: 100vh;
   width: 100%;
@@ -264,7 +259,7 @@ body {
 
 .editorial-grid {
   display: grid;
-  grid-template-columns: 1.3fr 1fr;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
   grid-template-rows: auto auto;
   gap: 1.25rem;
 }
@@ -612,6 +607,25 @@ body {
   100% { background-position: -200% 0; }
 }
 
+/* Allow nested flex and grid content to fit the viewport. */
+.heading,
+.controls-group,
+.search-form,
+.input-wrapper,
+#search-input,
+.tile-border,
+.location-meta,
+.condition-wrapper {
+  min-width: 0;
+}
+
+.city-title,
+.coords-text,
+.condition-headline,
+.condition-sub {
+  overflow-wrap: anywhere;
+}
+
 /* Responsive Media Queries */
 @media (max-width: 960px) {
   .editorial-grid {
@@ -642,11 +656,54 @@ body {
   .controls-group {
     width: 100%;
   }
+  .heading {
+    min-height: calc(100svh - 1.5rem);
+  }
   .search-form {
-    flex-grow: 1;
+    flex: 1 1 100%;
+    width: 100%;
+  }
+  .input-wrapper {
+    flex: 1;
+  }
+  .search-icon,
+  .btn-action {
+    flex-shrink: 0;
   }
   #search-input {
     width: 100%;
+    font-size: 1rem;
+  }
+  .btn-action,
+  .btn-icon {
+    min-height: 44px;
+  }
+  .btn-icon {
+    min-width: 44px;
+  }
+  .tile-border {
+    padding: 1rem;
+  }
+  .panel-header,
+  .arc-header,
+  .editorial-footer {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .hero-panel .panel-header {
+    flex-direction: column;
+  }
+  .time-meta {
+    text-align: left;
+  }
+  .hero-center {
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+  .condition-wrapper {
+    align-items: flex-start;
+    text-align: left;
+    flex: 1 1 160px;
   }
   .temp-number {
     font-size: 5.5rem;

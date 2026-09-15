@@ -9,6 +9,7 @@
 
   --background: #ECE8F0;
   --box: #F7F5F9;
+  --bg-tile: var(--box);
   --small-box: #E4DFEA;
   --border-color: #1A202C;
   --text: #12161A;

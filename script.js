@@ -55,6 +55,7 @@ const DOM = {
 
 function initApp() {
   document.documentElement.setAttribute("data-theme", state.theme);
+  syncThemeButton();
 
   if (DOM.themeBtn) DOM.themeBtn.addEventListener("click", toggleTheme);
   if (DOM.searchForm) DOM.searchForm.addEventListener("submit", handleSearchSubmit);
@@ -64,10 +65,19 @@ function initApp() {
   fetchWeatherData(state.city);
 }
 
+function syncThemeButton() {
+  if (!DOM.themeBtn) return;
+  const nextTheme = state.theme === "dark" ? "light" : "dark";
+  const label = `Switch to ${nextTheme} mode`;
+  DOM.themeBtn.setAttribute("aria-label", label);
+  DOM.themeBtn.title = label;
+}
+
 function toggleTheme() {
   state.theme = state.theme === "dark" ? "light" : "dark";
   document.documentElement.setAttribute("data-theme", state.theme);
   localStorage.setItem("atmos-theme", state.theme);
+  syncThemeButton();
 }
 
 function showToast(message) {
